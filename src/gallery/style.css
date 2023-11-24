@@ -1,0 +1,27 @@
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin: auto;
+  justify-items: center;
+}
+
+.image-container {
+  width: 350px;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  img {
+    position: relative;
+    left: 50%;
+    bottom: 20%;
+    transform: translate(-50%, 0);
+  }
+}
+#gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
