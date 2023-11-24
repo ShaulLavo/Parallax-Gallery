@@ -5,6 +5,7 @@ export const getImageUrls = async (
 	try {
 		const cacheKey = `unsplash-images-${size}`
 		const url = 'https://api.unsplash.com/photos/random'
+		//@ts-ignore better env?
 		const secrets = (await import('./secret.ts').catch(console.log))?.secrets
 		const accessKey = secrets?.UNSPLASH_ACCESS_KEY
 		if (!accessKey) {
