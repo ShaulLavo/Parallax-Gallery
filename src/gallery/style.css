@@ -12,7 +12,7 @@
   height: 350px;
   overflow: hidden;
   position: relative;
-  img {
+  & img {
     position: relative;
     left: 50%;
     bottom: 20%;
@@ -23,5 +23,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  /* background-color: aliceblue; */
 }

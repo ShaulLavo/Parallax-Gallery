@@ -2,7 +2,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { lenisManager } from '../lenisManager'
 import { math } from '../math'
-import { getImageUrls } from '../unsplash'
+import urls from '../images.json'
+import { Spinner } from '../Spinner'
 import './style.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -13,11 +14,13 @@ export async function renderGallery(containerId: string) {
 		console.error('Container element not found')
 		return
 	}
+	const spinner = new Spinner()
+	spinner.show()
 
-	const urls = await getImageUrls(74, 'regular')
 	await preloadImages(urls)
-
 	const galleryHTML = urls.map(url => getImageMarkup(url)).join('')
+
+	spinner.hide()
 
 	appElement.innerHTML = `<div class='gallery'>${galleryHTML}</div>`
 }

@@ -5,15 +5,15 @@
   top: 0;
   z-index: 2;
 
-  .inner {
+  & .inner {
     height: 100%;
     position: relative;
   }
 
-  .thumb {
-    min-height: 80px; /* Adjusted from desktop-vw(80px) */
-    width: 8px; /* Adjusted from desktop-vw(8px) */
-    background-color: #000; /* Example color, replace with your desired color */
+  & .thumb {
+    min-height: 80px;
+    width: 8px;
+    background-color: rgb(50, 50, 50);
     position: absolute;
     right: 0;
     border-radius: 0;

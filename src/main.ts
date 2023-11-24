@@ -5,7 +5,11 @@ import { renderGallery, initImageAnime } from './gallery'
 
 let isInfinite = false
 
-lenisManager.initLenis({ isInfinite })
-await renderGallery('gallery')
-initImageAnime()
-!isInfinite && initializeScrollbar()
+const init = async () => {
+	lenisManager.initLenis({ isInfinite })
+	await renderGallery('gallery')
+	initImageAnime()
+	!isInfinite && initializeScrollbar()
+}
+
+init()
