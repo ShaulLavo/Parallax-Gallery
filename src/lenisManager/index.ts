@@ -11,7 +11,6 @@ export const lenisManager = {
 			duration,
 			infinite: isInfinite,
 			normalizeWheel: true,
-			autoResize: true,
 			wheelMultiplier: 1.6,
 			lerp: 0.2
 		})

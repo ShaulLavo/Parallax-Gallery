@@ -7,7 +7,7 @@ let isInfinite = false
 
 const init = async () => {
 	lenisManager.initLenis({ isInfinite })
-	await renderGallery('gallery')
+	await renderGallery('app')
 	initImageAnime()
 	!isInfinite && initializeScrollbar()
 }

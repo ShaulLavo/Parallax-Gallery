@@ -1,23 +1,41 @@
 import './style.css'
 
 export class Spinner {
+	private container: HTMLDivElement
 	private spinnerElement: HTMLDivElement
 	private progressElement: HTMLDivElement
+	private currentProgress: number = 0
 
 	constructor() {
+		// Container for both spinner and progress
+		this.container = document.createElement('div')
+		this.container.className = 'spinner-container'
+
 		this.spinnerElement = document.createElement('div')
 		this.spinnerElement.className = 'spinner'
+		this.container.appendChild(this.spinnerElement)
 
 		this.progressElement = document.createElement('div')
 		this.progressElement.className = 'progress'
-		this.spinnerElement.appendChild(this.progressElement)
+		this.container.appendChild(this.progressElement)
 
-		document.body.appendChild(this.spinnerElement)
+		document.body.appendChild(this.container)
 		this.hide()
 	}
 
-	updateProgress(progress: number): void {
-		this.progressElement.innerText = `${Math.min(Math.max(progress, 0), 100)}%`
+	// Overloaded method signatures
+	updateProgress(progress: number): void
+	updateProgress(progressUpdater: (current: number) => number): void
+
+	updateProgress(progress: any): void {
+		if (typeof progress === 'function') {
+			this.currentProgress = progress(this.currentProgress).toFixed(0)
+		} else {
+			this.currentProgress = progress.toFixed(0)
+		}
+
+		this.currentProgress = Math.min(Math.max(this.currentProgress, 0), 100)
+		this.progressElement.innerText = `${this.currentProgress}%`
 	}
 
 	toggle(): void {
@@ -29,10 +47,10 @@ export class Spinner {
 	}
 
 	show(): void {
-		this.spinnerElement.style.display = 'flex'
+		this.container.style.display = 'flex'
 	}
 
 	hide(): void {
-		this.spinnerElement.style.display = 'none'
+		this.container.style.display = 'none'
 	}
 }

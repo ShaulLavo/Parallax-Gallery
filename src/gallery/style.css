@@ -17,6 +17,7 @@
     left: 50%;
     bottom: 20%;
     transform: translate(-50%, 0);
+    transition: ease;
   }
 }
 #gallery {

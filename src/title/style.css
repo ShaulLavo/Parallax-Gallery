@@ -1,0 +1,13 @@
+.centered-title {
+  position: absolute;
+  left: 50%;
+  /* top: 20%; */
+  transform: translate3d(-50%, 0, 0);
+  z-index: 20;
+  width: 60vw;
+  font-size: clamp(2rem, 0.7692rem + 6.1538vw, 10rem);
+  text-align: center;
+  color: #fff;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  transition: ease;
+}

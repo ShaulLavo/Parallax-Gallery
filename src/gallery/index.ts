@@ -1,28 +1,28 @@
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Spinner } from '../Spinner'
+import urls from '../images.json'
 import { lenisManager } from '../lenisManager'
 import { math } from '../math'
-import urls from '../images.json'
-import { Spinner } from '../Spinner'
 import './style.css'
 
-gsap.registerPlugin(ScrollTrigger)
-
+const spinner = new Spinner()
 export async function renderGallery(containerId: string) {
 	const appElement = document.getElementById(containerId)
 	if (!appElement) {
 		console.error('Container element not found')
 		return
 	}
-	const spinner = new Spinner()
+
 	spinner.show()
+	spinner.updateProgress(0)
+
+	// initTitle(containerId)
 
 	await preloadImages(urls)
 	const galleryHTML = urls.map(url => getImageMarkup(url)).join('')
 
 	spinner.hide()
 
-	appElement.innerHTML = `<div class='gallery'>${galleryHTML}</div>`
+	appElement.innerHTML += `<div class='gallery'>${galleryHTML}</div>`
 }
 
 function getImageMarkup(url: string) {
@@ -36,7 +36,7 @@ async function preloadImages(urls: string[]): Promise<void> {
 		urls.map(async url => {
 			const img = new Image()
 			img.src = url
-			return img.decode()
+			return img.decode().then(() => spinner.updateProgress(current => current + 100 / urls.length))
 		})
 	)
 }
@@ -47,7 +47,6 @@ export function initImageAnime() {
 	const imageAnime = () => {
 		images.forEach(image => {
 			const imageContainer = image.parentElement
-			imageContainer!.style.transition = 'opacity 2s ease-in-out'
 			if (!imageContainer) return
 
 			const {
@@ -74,4 +73,5 @@ export function initImageAnime() {
 	}
 	imageAnime()
 	lenisManager.lenis.on('scroll', imageAnime)
+	document.addEventListener('resize', imageAnime)
 }
