@@ -1,14 +1,17 @@
-import { secrets } from './secret'
-
 export const getImageUrls = async (
 	count: number,
 	size: keyof UnsplashImage['urls']
 ): Promise<string[]> => {
-	const cacheKey = `unsplash-images-${size}`
-	const url = 'https://api.unsplash.com/photos/random'
-	const accessKey = secrets.UNSPLASH_ACCESS_KEY // Assuming 'secrets' is imported or defined elsewhere
-
 	try {
+		const cacheKey = `unsplash-images-${size}`
+		const url = 'https://api.unsplash.com/photos/random'
+		const secrets = (await import('./secret.ts').catch(console.log))?.secrets
+		const accessKey = secrets?.UNSPLASH_ACCESS_KEY
+		if (!accessKey) {
+			const images = await import('./images.json')
+			localStorage.setItem(cacheKey, JSON.stringify(images.default))
+			return images.default
+		}
 		// Check local storage first
 		const cachedData = localStorage.getItem(cacheKey)
 		if (cachedData) {
@@ -34,7 +37,6 @@ export const getImageUrls = async (
 
 		// Update local storage
 		localStorage.setItem(cacheKey, JSON.stringify(images))
-		console.log('Fetched images from Unsplash', images)
 		return images
 	} catch (error) {
 		console.error('Error fetching images from Unsplash:', error)
