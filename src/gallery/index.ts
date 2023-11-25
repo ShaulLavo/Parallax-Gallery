@@ -32,6 +32,7 @@ function getImageMarkup(url: string) {
 }
 
 async function preloadImages(urls: string[]): Promise<void> {
+	try{
 	await Promise.all(
 		urls.map(async url => {
 			const img = new Image()
@@ -39,6 +40,7 @@ async function preloadImages(urls: string[]): Promise<void> {
 			return img.decode().then(() => spinner.updateProgress(current => current + 100 / urls.length))
 		})
 	)
+	}catch(e){console.log(e)}
 }
 
 export function initImageAnime() {
