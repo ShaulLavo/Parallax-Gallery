@@ -13,6 +13,7 @@
 		"vite": "^5.0.0"
 	},
 	"dependencies": {
+		"@cloudinary/url-gen": "^1.13.0",
 		"@studio-freight/lenis": "^1.0.28"
 	}
 }

@@ -1,5 +1,7 @@
 import { Spinner } from '../Spinner';
-import urls from '../images.json';
+import { getImageUrl, getLimitedImage } from '../cloudinary';
+import { imageIds } from '../constants';
+// import urls from '../images.json';
 import { lenisManager } from '../lenisManager';
 import { math } from '../math';
 import './style.css';
@@ -16,7 +18,8 @@ export async function renderGallery(containerId: string) {
 	spinner.updateProgress(0);
 
 	// initTitle(containerId)
-
+	// const urls = imageIds.map(imageId => getLimitedImage(imageId, { format: 'webp' }));
+	const urls = imageIds.map(imageId => getImageUrl(imageId, { format: 'webp' })); 3;
 	await preloadImages(urls);
 	const galleryHTML = urls.map(url => getImageMarkup(url)).join('');
 
