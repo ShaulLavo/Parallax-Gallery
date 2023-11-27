@@ -3,7 +3,7 @@ import { getImageUrl } from '../cloudinary';
 import { imageIds } from '../constants';
 import { lenisManager } from '../lenisManager';
 import { math } from '../math';
-import { calculateImagesToFitScreen, throttle } from '../utils';
+import { calculateImagesToFitScreen } from '../utils';
 import './style.css';
 
 
