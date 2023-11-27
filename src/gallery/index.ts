@@ -1,7 +1,6 @@
 import { Spinner } from '../Spinner';
-import { getImageUrl, getLimitedImage } from '../cloudinary';
-import { imageIds } from '../constants';
-// import urls from '../images.json';
+import { getImageUrl } from '../cloudinary';
+import { imageIds, supportsWebP } from '../constants';
 import { lenisManager } from '../lenisManager';
 import { math } from '../math';
 import './style.css';
@@ -16,10 +15,10 @@ export async function renderGallery(containerId: string) {
 
 	spinner.show();
 	spinner.updateProgress(0);
-
 	// initTitle(containerId)
-	// const urls = imageIds.map(imageId => getLimitedImage(imageId, { format: 'webp' }));
-	const urls = imageIds.map(imageId => getImageUrl(imageId, { format: 'webp' })); 3;
+
+	const urls = imageIds.map(imageId => getImageUrl(imageId, { format: supportsWebP ? 'webp' : 'png' }));
+
 	await preloadImages(urls);
 	const galleryHTML = urls.map(url => getImageMarkup(url)).join('');
 
@@ -52,7 +51,7 @@ export function initImageAnime() {
 	const imageAnime = () => {
 		images.forEach(image => {
 			const imageContainer = image.parentElement;
-			if (!imageContainer) return;
+			if (!imageContainer || !image.clientHeight) return;
 
 			const {
 				height: containerHeight,
@@ -73,7 +72,7 @@ export function initImageAnime() {
 			progress = Math.max(0, Math.min(1, progress));
 			progress = 1 - progress;
 
-			const translate = progress * (containerHeight - image.clientHeight);
+			const translate = progress * (containerHeight - image.clientHeight) * 1.05;
 			image.style.transform = `translate3d(-50%,${translate}px,0)`;
 		});
 	};

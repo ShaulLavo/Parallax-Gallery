@@ -1,3 +1,13 @@
+import { doesSupportWebP } from "./utils";
+
+
+export const sizes = {
+    container: 350,
+    gap: 10
+};
+
+export const supportsWebP = doesSupportWebP();
+
 export const imageIds = [
     "image-gallery/image0_cti7lm",
     "image-gallery/image1_mpkp56",

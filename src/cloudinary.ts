@@ -1,4 +1,5 @@
 import { Cloudinary } from '@cloudinary/url-gen';
+import { blur } from '@cloudinary/url-gen/actions/effect';
 import { scale, limitFit } from '@cloudinary/url-gen/actions/resize';
 
 type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
@@ -78,28 +79,17 @@ function getLimitedImage(imageId: string, options: BaseImageOptions): string {
 	return url.toURL();
 }
 
-function getLqipUrl(imageId: string): string {
-	return cld.image(imageId).resize(scale(150)).quality('auto:low').toURL();
-}
+function getLqipUrl(imageId: string, resize?: number): string {
+	const url = cld.image(imageId);
+	if (resize) url.resize(scale(150));
+	url.quality('auto:low');
+	url.format('auto');
+	url.effect(blur(100));
+	return url.toURL();
 
-function getImageData(imageId: string, options: ImageDataOptions): ImageData {
-	const imageData: ImageData = {};
-
-	if (options.includeHighQuality) {
-		imageData.imageUrl = getImageUrl(imageId, options);
-	}
-
-	if (options.includeLimited) {
-		imageData.limitedImageUrl = getLimitedImage(imageId, options);
-	}
-
-	if (options.includeLqip) {
-		imageData.lqipUrl = getLqipUrl(imageId);
-	}
-
-	return imageData;
 }
 
 
-export { getCld, getImageUrl, getImageData, getLqipUrl, getLimitedImage };
+
+export { getCld, getImageUrl, getLqipUrl, getLimitedImage };
 export type { ImageData, BaseImageOptions, ImageDataOptions };

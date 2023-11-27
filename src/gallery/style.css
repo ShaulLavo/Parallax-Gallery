@@ -5,6 +5,7 @@
   width: 100%;
   margin: auto;
   justify-items: center;
+  padding-bottom: 700px;
 }
 
 .image-container {
@@ -19,10 +20,4 @@
     transform: translate(-50%, 0);
     transition: ease;
   }
-}
-#gallery {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background-color: aliceblue; */
 }
