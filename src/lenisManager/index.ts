@@ -1,3 +1,4 @@
+import { throttle } from '../utils';
 import './style.css';
 
 import Lenis from '@studio-freight/lenis';
@@ -10,9 +11,8 @@ export const lenisManager = {
 		this.instance = new Lenis({
 			duration,
 			infinite: isInfinite,
-			normalizeWheel: true,
+			syncTouch: true,
 			wheelMultiplier: 1.6,
-			lerp: 0.2
 		});
 		this.instance.emit();
 
@@ -22,11 +22,14 @@ export const lenisManager = {
 		};
 
 		requestAnimationFrame(raf);
-		this.instance.scrollTo(scrollY, { immediate: true });
 	},
 
 	get lenis() {
 		if (!this.instance) throw Error('Lenis not initialized');
 		return this.instance;
+	},
+
+	onScrollThrottled(callback: (scroll: number) => void) {
+		lenisManager.lenis.on('scroll', throttle(callback, 10));
 	}
 };

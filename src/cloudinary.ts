@@ -4,7 +4,7 @@ import { scale, limitFit } from '@cloudinary/url-gen/actions/resize';
 
 type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
-type ImageFormat = 'png' | 'webp';
+type ImageFormat = 'png' | 'webp' | 'auto';
 
 interface BaseImageOptions {
 	width?: number;
@@ -43,7 +43,6 @@ function getCld() {
 
 function getImageUrl(imageId: string, options?: BaseImageOptions): string {
 	const url = cld.image(imageId).quality('auto');
-
 	if (options?.format) {
 		url.format(options.format);
 	} else {
