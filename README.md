@@ -10,31 +10,31 @@ To get this project running on your local machine, follow these steps:
 
 1. Clone the repository:
 
-   ```
-   git clone https://github.com/ShaulLavo/Parallax-Gallery.git
-   ```
+    ```
+    git clone https://github.com/ShaulLavo/Parallax-Gallery.git
+    ```
 
 2. Navigate to the project directory:
 
-   ```
-   cd Parallax-Gallery
-   ```
+    ```
+    cd Parallax-Gallery
+    ```
 
 3. Install dependencies:
 
-   ```
-   npm install
-   ```
+    ```
+    npm install
+    ```
 
 4. Run the project:
-   ```
-   npm run dev
-   ```
+    ```
+    npm run dev
+    ```
 
 ## Features
 
-- Parallax scrolling effect using Lenis.
-- Gallery built with vanilla TypeScript.
+-   Parallax scrolling effect using Lenis.
+-   Gallery built with vanilla TypeScript.
 
 ## License
 
