@@ -1,28 +1,28 @@
 import './style.css'
-import { lenisManager } from './lenisManager'
+import { lenisManager } from './lenis'
 import { initializeScrollbar } from './scrollBar'
 import { renderGallery, initImageAnime } from './gallery'
-import { spinner } from './Spinner'
-import { imageIds, isInfinite } from './constants'
+import { createLoadingScreen, hideLoadingScreen } from './loadingScreen'
+import { isInfinite } from './constants'
 
 const init = async () => {
-    console.log('starting a', imageIds.length, 'image gallery')
+    createLoadingScreen()
     const start = performance.now()
-
     await renderGallery('app')
 
     lenisManager.initLenis({ isInfinite })
+
     const anime = initImageAnime()
+    requestAnimationFrame(anime)
 
     initializeScrollbar()
     lenisManager.lenis.scrollTo(0, { immediate: true })
-    requestAnimationFrame(anime)
 
     const end = performance.now()
     const elapsed = end - start
-    spinner.hide()
-
     console.log(`took ${elapsed} milliseconds to init.`)
+
+    hideLoadingScreen()
 }
 
 init()

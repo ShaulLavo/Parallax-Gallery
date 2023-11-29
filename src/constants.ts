@@ -1,4 +1,4 @@
-export const isInfinite = true
+export const isInfinite = false
 
 export const sizes = {
     container: 350,

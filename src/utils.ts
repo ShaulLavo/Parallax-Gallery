@@ -9,6 +9,7 @@ export function doesSupportWebP() {
         return false
     }
 }
+
 export function calculateImagesToFitScreen() {
     const totalSize = sizes.container + sizes.gap
 
@@ -21,6 +22,7 @@ export function calculateImagesToFitScreen() {
 export function isImage(elem: HTMLElement): elem is HTMLImageElement {
     return elem instanceof HTMLImageElement
 }
+
 export function throttle<R, A extends any[]>(
     fn: (...args: A) => R,
     wait: number

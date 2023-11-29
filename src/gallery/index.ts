@@ -1,4 +1,4 @@
-import { spinner } from '../Spinner'
+import { updateLoadingProgress, showLoadingScreen } from '../loadingScreen'
 import { getImageUrl } from '../cloudinary'
 import { imageIds } from '../constants'
 import { lenisManager } from '../lenisManager'
@@ -13,10 +13,9 @@ export async function renderGallery(containerId: string) {
         return
     }
 
-    spinner.show()
-    spinner.updateProgress(0)
+    showLoadingScreen()
 
-    const urls = imageIds.map((imageId) =>
+    const urls = imageIds.map(imageId =>
         getImageUrl(imageId, { format: 'webp' })
     )
 
@@ -36,7 +35,7 @@ export function initImageAnime() {
         const images = document.querySelectorAll(
             '.gallery img'
         ) as NodeListOf<HTMLElement>
-        images.forEach((image) => animeImage(image as HTMLImageElement))
+        images.forEach(image => animeImage(image as HTMLImageElement))
     }
 
     lenisManager.lenis.on('scroll', () => requestAnimationFrame(imageAnime))
@@ -45,25 +44,24 @@ export function initImageAnime() {
 }
 
 function getImageMarkup(url: string, index: number, numberToPreload: number) {
-    const shouldLoadLazy = index >= numberToPreload
     return `<div class='image-container'>
                 <img src='${url}' alt='Image' ${
-                    shouldLoadLazy ? 'loading="lazy"' : ''
-                }/>
+        index >= numberToPreload ? 'loading="lazy"' : ''
+    }/>
             </div>`
 }
 
 async function preloadImages(urls: string[]): Promise<void> {
     try {
         await Promise.all(
-            urls.map(async (url) => {
+            urls.map(async url => {
                 const image = new Image()
                 image.src = url
                 return image
                     .decode()
                     .then(() =>
-                        spinner.updateProgress(
-                            (current) => current + 100 / urls.length
+                        updateLoadingProgress(
+                            current => current + 100 / urls.length
                         )
                     )
             })
@@ -80,7 +78,7 @@ function animeImage(image: HTMLImageElement) {
         image.onload = ({ target }) => animeImage(target as HTMLImageElement)
         return
     }
-
+    console.log('anime loaded')
     const {
         height: containerHeight,
         top: containerTop,
