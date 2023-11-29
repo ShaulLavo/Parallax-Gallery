@@ -1,5 +1,5 @@
 import './style.css'
-import { lenisManager } from './lenis'
+import { lenisManager } from './lenisManager'
 import { initializeScrollbar } from './scrollBar'
 import { renderGallery, initImageAnime } from './gallery'
 import { createLoadingScreen, hideLoadingScreen } from './loadingScreen'
