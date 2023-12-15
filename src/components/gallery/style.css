@@ -5,7 +5,7 @@
     width: 100%;
     margin: auto;
     justify-items: center;
-    /* padding-bottom: 925px; */
+    padding-bottom: 925px;
 }
 
 .image-container {
@@ -19,7 +19,7 @@
         bottom: 20%;
         transform: translate(-50%, 0);
         transition: ease;
-        /* transition-duration: 1ms; */
+        /* transition-duration: 10ms; */
         min-height: 350px;
         min-width: 350px;
     }

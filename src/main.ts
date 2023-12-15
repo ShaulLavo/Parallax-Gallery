@@ -1,9 +1,12 @@
 import './style.css'
-import { lenisManager } from './lenisManager'
-import { initializeScrollbar } from './scrollBar'
-import { renderGallery, initImageAnime } from './gallery'
-import { createLoadingScreen, hideLoadingScreen } from './loadingScreen'
-import { isInfinite } from './constants'
+import { lenisManager } from './components/lenisManager'
+import { initializeScrollbar } from './components/scrollBar'
+import { renderGallery, initImageAnime } from './components/gallery'
+import {
+    createLoadingScreen,
+    hideLoadingScreen,
+} from './components/loadingScreen'
+import { isInfinite } from './utilities/constants'
 
 const init = async () => {
     createLoadingScreen()

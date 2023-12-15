@@ -1,9 +1,9 @@
 import { updateLoadingProgress, showLoadingScreen } from '../loadingScreen'
-import { getImageUrl } from '../cloudinary'
-import { imageIds } from '../constants'
+import { getImageUrl } from '../../utilities/cloudinary'
+import { imageIds } from '../../utilities/constants'
 import { lenisManager } from '../lenisManager'
-import { math } from '../math'
-import { calculateImagesToFitScreen } from '../utils'
+import { math } from '../../utilities/math'
+import { calculateImagesToFitScreen } from '../../utilities/utils'
 import './style.css'
 
 export async function renderGallery(containerId: string) {
@@ -78,7 +78,6 @@ function animeImage(image: HTMLImageElement) {
         image.onload = ({ target }) => animeImage(target as HTMLImageElement)
         return
     }
-    console.log('anime loaded')
     const {
         height: containerHeight,
         top: containerTop,
@@ -101,4 +100,5 @@ function animeImage(image: HTMLImageElement) {
 
     const translate = progress * (containerHeight - image.clientHeight) * 1.05
     image.style.transform = `translate3d(-50%,${translate}px,0)`
+    // image.style.top = `${translate}px`
 }

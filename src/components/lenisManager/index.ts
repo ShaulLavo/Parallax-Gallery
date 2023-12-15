@@ -1,4 +1,5 @@
-import { throttle } from '../utils'
+import { linear } from '../../utilities/easing'
+import { throttle } from '../../utilities/utils'
 import './style.css'
 
 import Lenis from '@studio-freight/lenis'
@@ -10,9 +11,11 @@ export const lenisManager = {
         const { duration = 1.1, isInfinite = true } = options
         this.instance = new Lenis({
             duration,
+            lerp: 0.4,
             infinite: isInfinite,
             syncTouch: true,
             wheelMultiplier: 1.6,
+            easing: linear,
         })
         this.instance.emit()
 
