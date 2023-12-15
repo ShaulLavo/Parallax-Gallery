@@ -1,5 +1,6 @@
 import './style.css'
 import { lenisManager } from '../lenisManager'
+import { linear, quadratic } from '../../utilities/easing'
 function mapRange(
     inMin: number,
     inMax: number,

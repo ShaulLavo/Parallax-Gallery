@@ -63,3 +63,13 @@ export const inOutCirc = (t: number): number => {
     t -= 2
     return (Math.sqrt(1 - t * t) + 1) / 2
 }
+export const abruptQuadratic = (t: number, cutOff = 0.8): number => {
+    if (t < cutOff) {
+        return t * (-(t * t) * t + 4 * t * t - 6 * t + 4)
+    } else {
+        return (
+            cutOff *
+            (-(cutOff * cutOff) * cutOff + 4 * cutOff * cutOff - 6 * cutOff + 4)
+        )
+    }
+}

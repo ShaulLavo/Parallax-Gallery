@@ -1,4 +1,4 @@
-import { linear } from '../../utilities/easing'
+import { quadratic } from '../../utilities/easing'
 import { throttle } from '../../utilities/utils'
 import './style.css'
 
@@ -11,11 +11,12 @@ export const lenisManager = {
         const { duration = 1.1, isInfinite = true } = options
         this.instance = new Lenis({
             duration,
-            lerp: 0.4,
+            // lerp: 0.4,
             infinite: isInfinite,
+            smoothWheel: true,
             syncTouch: true,
             wheelMultiplier: 1.6,
-            easing: linear,
+            easing: quadratic,
         })
         this.instance.emit()
 
