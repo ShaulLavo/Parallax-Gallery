@@ -4,9 +4,9 @@
 
 A showcase focusing on a cool Lenis-enhanced parallax scroll effect. Highlights include CSS transformation optimizations, image handling with pre-loading, and lazy loading. Built with TypeScript and Vite, featuring various other performance optimizations.
 
-[Vercel Deployment](https://parallax-gallery-eight.vercel.app/)
-[Cloudflare Deployment](https://cloudflare-gallery.pages.dev/) - It's less optimized but slightly smoother
 
+[Vercel Deployment](https://parallax-gallery-eight.vercel.app/)<br>
+[Cloudflare Deployment](https://cloudflare-gallery.pages.dev/) - It's less optimized but slightly smoother
 
 ## Setup
 
