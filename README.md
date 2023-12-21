@@ -2,7 +2,11 @@
 
 ## Introduction
 
-This is a simple parallax gallery project utilizing Lenis for smooth scrolling effects, built with vanilla TypeScript and bundled using Vite.
+A showcase focusing on a cool Lenis-enhanced parallax scroll effect. Highlights include CSS transformation optimizations, image handling with pre-loading, and lazy loading. Built with TypeScript and Vite, featuring various other performance optimizations.
+
+[Vercel Deployment](https://parallax-gallery-eight.vercel.app/)
+[Cloudflare Deployment](https://cloudflare-gallery.pages.dev/) - It's less optimized but slightly smoother
+
 
 ## Setup
 
@@ -31,10 +35,6 @@ To get this project running on your local machine, follow these steps:
     npm run dev
     ```
 
-## Features
-
--   Parallax scrolling effect using Lenis.
--   Gallery built with vanilla TypeScript.
 
 ## License
 
