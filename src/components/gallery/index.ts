@@ -74,7 +74,7 @@ async function preloadImages(urls: string[]): Promise<void> {
 function animeImage(image: HTMLImageElement) {
     const imageContainer = image.parentElement
     if (!imageContainer || !image.naturalHeight) {
-        // not loaded yet
+        // not loaded yet - animate on load
         image.onload = ({ target }) => animeImage(target as HTMLImageElement)
         return
     }
@@ -90,15 +90,11 @@ function animeImage(image: HTMLImageElement) {
 
     const windowHeight = window.innerHeight
 
-    let progress = 0
-    if (containerBottom >= 0 && containerTop <= windowHeight) {
-        progress =
-            (windowHeight - containerTop) / (windowHeight + containerHeight)
-    } else return // we don't need to animate images that are not visible
+    // we don't need to animate images that are not visible
+    if (!(containerBottom >= 0 && containerTop <= windowHeight)) return
 
-    progress = 1 - progress
-
+    let progress =
+        1 - (windowHeight - containerTop) / (windowHeight + containerHeight)
     const translate = progress * (containerHeight - image.clientHeight) * 1.05
     image.style.transform = `translate3d(-50%,${translate}px,0)`
-    // image.style.top = `${translate}px`
 }
