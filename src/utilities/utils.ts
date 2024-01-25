@@ -16,11 +16,19 @@ export function calculateImagesToFitScreen() {
     const columns = Math.ceil(window.innerWidth / totalSize)
     const rows = Math.ceil(window.innerHeight / totalSize)
 
-    return columns * rows
+    return { rows, screen: columns * rows }
 }
 
 export function isImage(elem: HTMLElement): elem is HTMLImageElement {
     return elem instanceof HTMLImageElement
+}
+
+export function segmentIntoRows(items: any[], imagesPerRow: number) {
+    const rows = []
+    for (let i = 0; i < items.length; i += imagesPerRow) {
+        rows.push(items.slice(i, i + imagesPerRow))
+    }
+    return rows
 }
 
 export function throttle<R, A extends any[]>(

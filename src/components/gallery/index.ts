@@ -3,8 +3,22 @@ import { getImageUrl } from '../../utilities/cloudinary'
 import { imageIds } from '../../utilities/constants'
 import { lenisManager } from '../lenisManager'
 import { math } from '../../utilities/math'
-import { calculateImagesToFitScreen } from '../../utilities/utils'
+import {
+    calculateImagesToFitScreen,
+    segmentIntoRows,
+} from '../../utilities/utils'
 import './style.css'
+
+let images: NodeListOf<HTMLImageElement>
+
+function getImages() {
+    if (images) return images
+    else {
+        return document.querySelectorAll(
+            '.gallery img'
+        ) as NodeListOf<HTMLImageElement>
+    }
+}
 
 export async function renderGallery(containerId: string) {
     const appElement = document.getElementById(containerId)
@@ -19,7 +33,7 @@ export async function renderGallery(containerId: string) {
         getImageUrl(imageId, { format: 'webp' })
     )
 
-    const numberToPreload = calculateImagesToFitScreen()
+    const { screen: numberToPreload } = calculateImagesToFitScreen()
     console.log('preloading first', numberToPreload, 'images')
     await preloadImages(urls.slice(0, numberToPreload))
 
@@ -32,15 +46,32 @@ export async function renderGallery(containerId: string) {
 
 export function initImageAnime() {
     const imageAnime = () => {
-        const images = document.querySelectorAll(
-            '.gallery img'
-        ) as NodeListOf<HTMLElement>
-        images.forEach(image => animeImage(image as HTMLImageElement))
+        getImages().forEach(image => animeImage(image))
     }
 
     lenisManager.lenis.on('scroll', () => requestAnimationFrame(imageAnime))
     window.addEventListener('resize', () => requestAnimationFrame(imageAnime))
     return imageAnime
+}
+
+export async function preloadImagesRowByRow() {
+    const { rows, screen } = calculateImagesToFitScreen()
+    const imageRows = segmentIntoRows(
+        Array.from(getImages()),
+        rows
+    ) as HTMLImageElement[][]
+    const startingRowIndex = Math.ceil(screen / rows)
+    for (let i = startingRowIndex; i < imageRows.length; i++) {
+        const row = imageRows[i]
+        const promises = row.map(img => {
+            img.loading = 'eager'
+            return img
+                .decode()
+                .catch(error => console.error('Error decoding image:', error))
+        })
+
+        await Promise.all(promises)
+    }
 }
 
 function getImageMarkup(url: string, index: number, numberToPreload: number) {

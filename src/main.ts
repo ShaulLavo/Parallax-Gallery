@@ -1,7 +1,11 @@
 import './style.css'
 import { lenisManager } from './components/lenisManager'
 import { initializeScrollbar } from './components/scrollBar'
-import { renderGallery, initImageAnime } from './components/gallery'
+import {
+    renderGallery,
+    initImageAnime,
+    preloadImagesRowByRow,
+} from './components/gallery'
 import {
     createLoadingScreen,
     hideLoadingScreen,
@@ -26,6 +30,9 @@ const init = async () => {
     console.log(`took ${elapsed} milliseconds to init.`)
 
     hideLoadingScreen()
+    setTimeout(async () => {
+        await preloadImagesRowByRow()
+    }, 100)
 }
 
 init()
